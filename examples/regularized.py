@@ -31,7 +31,7 @@ def compute_cost_logistic_reg(X, y, w, b, lambda_): #用于显示当前的损失
     m, _ = X.shape
     z = X @ w + b
     h = sigmoid(z)
-    # Clip to keep log numerically stable.
+ 
     eps = 1e-12
     h = np.clip(h, eps, 1 - eps)
     loss = -np.mean(y * np.log(h) + (1 - y) * np.log(1 - h))

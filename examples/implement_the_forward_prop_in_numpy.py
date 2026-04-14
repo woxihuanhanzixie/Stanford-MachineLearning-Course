@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 
 def sigmoid(x):
-    return 1/1+np.exp(-x)
+    return 1/(1+np.exp(-x))
 
 g = sigmoid
 
@@ -46,17 +46,16 @@ W2_tmp = np.array( [[-31.18], [-27.59], [-32.56]] )
 b2_tmp = np.array( [15.41] )
 
 def my_predict(X, W1, b1, W2, b2):
-    m = X.shape[0]
-    p = np.zeros((m,1))
-    for i in range(m):
-        p[i,0] = my_sequential(X[i], W1, b1, W2, b2)
-    return(p)
+    # 直接批量前向，避免逐样本循环带来的维度问题
+    p = my_sequential(X, W1, b1, W2, b2)
+    return p
 
 X_tst = np.array([
     [200,13.9],  # postive example
     [200,17]])   # negative example
 norm_l = tf.keras.layers.Normalization(axis=-1)
-X_tstn = norm_l(X_tst)  # remember to normalize
+norm_l.adapt(X_tst)
+X_tstn = norm_l(X_tst).numpy()  # remember to normalize
 predictions = my_predict(X_tstn, W1_tmp, b1_tmp, W2_tmp, b2_tmp)
 
 yhat = (predictions >= 0.5).astype(int)

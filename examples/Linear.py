@@ -72,5 +72,39 @@ def gradient_descent(x, y, w_in, b_in, alpha, num_iters):
         if i % math.ceil(num_iters / 10) == 0:
             print(f"迭代{i:4d}: 损失函数值 {j_history[-1]:8.2f}")
     return w, b, j_history
-# 实例化
-# 带入数据即可
+
+
+if __name__ == "__main__":
+    # 简单一元线性回归示例
+    X_train = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
+    y_train = np.array([2.1, 3.9, 6.2, 7.8, 10.1])
+
+    w_init = np.zeros(X_train.shape[1])
+    b_init = 0.0
+    alpha = 0.01
+    iters = 3000
+
+    w_final, b_final, j_history = gradient_descent(X_train, y_train, w_init, b_init, alpha, iters)
+    print(f"\n训练完成: w={w_final}, b={b_final:.4f}, final_cost={j_history[-1]:.6f}")
+
+    # 绘制拟合结果与损失曲线
+    fig, axes = plt.subplots(1, 2, figsize=(12, 4))
+
+    axes[0].scatter(X_train[:, 0], y_train, c="steelblue", label="Train Data")
+    x_line = np.linspace(X_train[:, 0].min(), X_train[:, 0].max(), 100)
+    y_line = w_final[0] * x_line + b_final
+    axes[0].plot(x_line, y_line, c="tomato", label="Fitted Line")
+    axes[0].set_title("Linear Regression Fit")
+    axes[0].set_xlabel("x")
+    axes[0].set_ylabel("y")
+    axes[0].legend()
+    axes[0].grid(alpha=0.2)
+
+    axes[1].plot(j_history, c="purple")
+    axes[1].set_title("Cost History")
+    axes[1].set_xlabel("Iteration")
+    axes[1].set_ylabel("Cost")
+    axes[1].grid(alpha=0.2)
+
+    plt.tight_layout()
+    plt.show()

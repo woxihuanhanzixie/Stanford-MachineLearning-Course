@@ -39,6 +39,5 @@ def compare_logistic():
     w_final, b_final, _ = logistic_gd(X, y, w_init, b_init, 0.1, 10000)
     print(f"Manual:  w={w_final}, b={b_final:.4f}")
 
-if __name__ == "__main__":
-    compare_linear()
-    compare_logistic()
+compare_linear()
+compare_logistic()

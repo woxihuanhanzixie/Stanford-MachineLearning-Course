@@ -59,17 +59,16 @@ class NeuralNetwork:
                 print(f"Epoch {i:5d}: Loss {loss:.4f}")
         return history
 
-if __name__ == "__main__":
-    # 测试数据 (XOR 问题)
-    X = np.array([[0,0], [0,1], [1,0], [1,1]])
-    y = np.array([[0], [1], [1], [0]])
-    
-    nn = NeuralNetwork(2, 4, 1)
-    print("Training Simple Neural Network...")
-    losses = nn.train(X, y, epochs=10000, learning_rate=0.5)
-    
-    # 预测
-    predictions = nn.forward(X)
-    print("\nPredictions for XOR:")
-    for i in range(len(X)):
-        print(f"Input: {X[i]}, Pred: {predictions[i][0]:.4f}")
+# 测试数据 (XOR 问题)
+X = np.array([[0,0], [0,1], [1,0], [1,1]])
+y = np.array([[0], [1], [1], [0]])
+
+nn = NeuralNetwork(2, 4, 1)
+print("Training Simple Neural Network...")
+losses = nn.train(X, y, epochs=10000, learning_rate=0.5)
+
+# 预测
+predictions = nn.forward(X)
+print("\nPredictions for XOR:")
+for i in range(len(X)):
+    print(f"Input: {X[i]}, Pred: {predictions[i][0]:.4f}")
